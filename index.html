@@ -1,28 +1,30 @@
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
 
 <div id="app">
-    <button v-on:click="show = !show">Show / Hide</button>
-    <p v-if="show">I am part-time visible!</p>
-    <p v-else>Am I visible?</p>
-    <p v-show="show">Yep, I am here</p>
-<!--    v-show does not remove elements from the DOM-->
-    <hr>
-<!--    {{persons[0].name}} - replaced by v-for(reactive)-->
-    <ul>
-        <li v-for="(person, index) in persons">{{person.name}} - {{index+1}}</li>
-    </ul>
+    <p>{{title | uppercase | lowercase}}</p>
+    <p>{{message | uppercase}}</p>
 </div>
 
 <script>
+  Vue.filter('uppercase', function (value) {
+    return value.toUpperCase();
+  });
+
   new Vue({
     el: '#app',
     data: {
-      show: true,
-      persons: [
-        {name: 'Valery', age: 20},
-        {name: 'Irina', age: 21},
-        {name: 'Dima', age: 22}
-      ]
+      title: 'hello world!',
+      message: 'smth'
+    },
+    computed: {
+      theTitle: function () {
+        return this.title.toUpperCase();
+      }
+    },
+    filters: {
+      lowercase: function (value) {
+        return value.toLowerCase();
+      }
     }
   });
 </script>
